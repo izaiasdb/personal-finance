@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "./logo.png";
+import logo from "./personal-finance-logo.svg";
 import "./Navbar.css";
 import { useAuth } from "../../Context/useAuth";
 
@@ -13,7 +13,7 @@ const Navbar = (props: Props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-20">
           <Link to="/">
-            <img src={logo} alt="" />
+            <img src={logo} alt="Personal Finance logo" />
           </Link>
           <div className="hidden font-bold lg:flex">
             <div className="flex items-center gap-6">
@@ -26,12 +26,13 @@ const Navbar = (props: Props) => {
         {isLoggedIn() ? (
           <div className="hidden lg:flex items-center space-x-6 text-back">
             <div className="hover:text-darkBlue">Welcome, {user?.userName}</div>
-            <a
+            <button
+              type="button"
               onClick={logout}
               className="px-8 py-3 font-bold rounded text-white bg-lightGreen hover:opacity-70"
             >
               Logout
-            </a>
+            </button>
           </div>
         ) : (
           <div className="hidden lg:flex items-center space-x-6 text-back">
