@@ -1,0 +1,46 @@
+export type TableConfigItem<TData> = {
+  label: string;
+  render: (data: TData) => React.ReactNode;
+};
+
+type Props<TData> = {
+  config: Array<TableConfigItem<TData>>;
+  data: TData[];
+};
+
+const Table = <TData extends { cik?: string | number },>({ config, data }: Props<TData>) => {
+  const renderedRows = data.map((company, index) => {
+    const rowKey = company.cik ?? index;
+    return (
+      <tr key={rowKey}>
+        {config.map((val) => {
+          return (
+            <td className="p-3" key={val.label}>
+              {val.render(company)}
+            </td>
+          );
+        })}
+      </tr>
+    );
+  });
+  const renderedHeaders = config.map((config) => {
+    return (
+      <th
+        className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        key={config.label}
+      >
+        {config.label}
+      </th>
+    );
+  });
+  return (
+    <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+      <table className="min-w-full divide-y divide-gray-200 m-5">
+        <thead className="bg-gray-50">{renderedHeaders}</thead>
+        <tbody>{renderedRows}</tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Table;
